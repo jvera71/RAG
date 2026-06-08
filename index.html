@@ -67,6 +67,124 @@
 
     
     
+  
+  <style>
+    /* Estilos del Modal del Esquema */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.75); /* Slate oscuro semitransparente */
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-container {
+      background: var(--md-card-bg-color, #ffffff);
+      color: var(--md-text-color, #000000);
+      padding: 24px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 850px;
+      max-height: 85vh;
+      overflow: auto;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+      transform: scale(0.95);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      border: 1px solid var(--md-default-fg-color--transparent, rgba(0,0,0,0.1));
+    }
+    .modal-overlay.active .modal-container {
+      transform: scale(1);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--md-default-fg-color--transparent, rgba(0,0,0,0.08));
+      padding-bottom: 12px;
+    }
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--md-primary-fg-color, #4f46e5);
+      font-family: var(--md-text-font-family, sans-serif);
+    }
+    .modal-close {
+      border: none;
+      background: none;
+      font-size: 1.75rem;
+      cursor: pointer;
+      color: var(--md-text-color);
+      opacity: 0.5;
+      transition: opacity 0.2s, transform 0.2s;
+      line-height: 1;
+      padding: 4px;
+    }
+    .modal-close:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    .modal-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 250px;
+      overflow-x: auto;
+      background: var(--md-code-bg-color, #f8fafc);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .modal-spinner {
+      border: 4px solid var(--md-default-fg-color--transparent, rgba(0,0,0,0.1));
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border-left-color: var(--md-primary-fg-color, #4f46e5);
+      animation: modal-spin 0.8s linear infinite;
+    }
+    @keyframes modal-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Badge del esquema en el índice */
+    .open-diagram-modal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 6px;
+      padding: 2px 6px;
+      background: var(--md-primary-fg-color--transparent, rgba(79, 70, 229, 0.1));
+      color: var(--md-primary-fg-color, #4f46e5);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      border: 1px solid var(--md-primary-fg-color--transparent, rgba(79, 70, 229, 0.2));
+      vertical-align: middle;
+    }
+    .open-diagram-modal:hover {
+      background: var(--md-primary-fg-color, #4f46e5);
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+  </style>
+
   </head>
   
   
@@ -3012,9 +3130,9 @@
 <li><a href="1._Introducci%C3%B3n/">1. Introducción</a></li>
 <li><a href="1._Introducci%C3%B3n/1.1_El_papel_de_los_Grandes_Modelos_de_Lenguaje_LLMs_en_el_Procesamiento_del_Len/">1.1 El papel de los Grandes Modelos de Lenguaje (LLMs) en el Procesamiento del Lenguaje Natural (NPL)</a></li>
 <li><a href="1._Introducci%C3%B3n/1.2_La_importancia_de_la_respuesta_a_preguntas_Question_Answering_sobre_document/">1.2 La importancia de la respuesta a preguntas (Question Answering) sobre documentos PDF</a></li>
-<li><a href="1._Introducci%C3%B3n/1.3_El_enfoque_de_Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/">1.3 El enfoque de Generación Aumentada por Recuperación</a></li>
+<li><a href="1._Introducci%C3%B3n/1.3_El_enfoque_de_Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/">1.3 El enfoque de Generación Aumentada por Recuperación</a> <a href="1._Introducción/1.3_El_enfoque_de_Generación_Aumentada_por_Recuperación.md#el-flujo-de-trabajo-rag" class="open-diagram-modal" data-title="El Flujo de Trabajo RAG">📊</a></li>
 <li><a href="1._Introducci%C3%B3n/1.4_RAG_vs._Fine-Tuning_Cu%C3%A1ndo_usar_cada_enfoque/">1.4 RAG vs. Fine-Tuning: Cuándo usar cada enfoque</a></li>
-<li><a href="1._Introducci%C3%B3n/1.5_Descripci%C3%B3n_general_del_ecosistema_RAG_en_.NET_Microsoft_Semantic_Kernel_Lan/">1.5 Descripción general del ecosistema RAG en .NET (<em>Microsoft Semantic Kernel, LangChain.NET, .NET Aspire</em>)</a></li>
+<li><a href="1._Introducci%C3%B3n/1.5_Descripci%C3%B3n_general_del_ecosistema_RAG_en_.NET_Microsoft_Semantic_Kernel_Lan/">1.5 Descripción general del ecosistema RAG en .NET (<em>Microsoft Semantic Kernel, LangChain.NET, .NET Aspire</em>)</a> <a href="1._Introducción/1.5_Descripción_general_del_ecosistema_RAG_en_.NET_Microsoft_Semantic_Kernel_Lan.md#155-resumen-de-herramientas-complementarias" class="open-diagram-modal" data-title="Arquitectura de Capas de RAG en .NET">📊</a></li>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/">2. Generación Aumentada por Recuperación</a></li>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.1_Las_limitaciones_de_la_IA_Generativa/">2.1 Las limitaciones de la IA Generativa</a><ul>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.1_Las_limitaciones_de_la_IA_Generativa/2.1.1_Alucinaciones_y_el_problema_de_la_fecha_de_corte_de_conocimiento/">2.1.1 Alucinaciones y el problema de la fecha de corte de conocimiento</a></li>
@@ -3023,9 +3141,9 @@
 </ul>
 </li>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.2_Introducci%C3%B3n_a_la_Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/">2.2 Introducción a la Generación Aumentada por Recuperación</a></li>
-<li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.3_Arquitectura_de_RAG_en_aplicaciones_.NET_Visi%C3%B3n_General/">2.3 Arquitectura de RAG en aplicaciones .NET <em>(Visión General)</em></a></li>
+<li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.3_Arquitectura_de_RAG_en_aplicaciones_.NET_Visi%C3%B3n_General/">2.3 Arquitectura de RAG en aplicaciones .NET <em>(Visión General)</em></a> <a href="2._Generación_Aumentada_por_Recuperación/2.3_Arquitectura_de_RAG_en_aplicaciones_.NET_Visión_General.md#231-los-dos-pilares-de-la-arquitectura-rag" class="open-diagram-modal" data-title="Los Dos Pilares de la Arquitectura RAG">📊</a></li>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.4_Construcci%C3%B3n_del_sistema_de_recuperaci%C3%B3n_Retrieval/">2.4 Construcción del sistema de recuperación (Retrieval)</a></li>
-<li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.5_Embeddings_y_Bases_de_Datos_Vectoriales_para_.NET/">2.5 Embeddings y Bases de Datos Vectoriales para .NET</a><ul>
+<li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.5_Embeddings_y_Bases_de_Datos_Vectoriales_para_.NET/">2.5 Embeddings y Bases de Datos Vectoriales para .NET</a> <a href="2._Generación_Aumentada_por_Recuperación/2.5_Embeddings_y_Bases_de_Datos_Vectoriales_para_.NET/index.md#azure-openai-y-openai-sdk-para-net" class="open-diagram-modal" data-title="Espacio Vectorial Semántico">📊</a><ul>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.5_Embeddings_y_Bases_de_Datos_Vectoriales_para_.NET/2.5.1_Modelos_de_Embeddings_Azure_OpenAI_OpenAI_SDK_para_.NET_y_ejecuci%C3%B3n_local/">2.5.1 Modelos de Embeddings (<em>Azure OpenAI, OpenAI SDK para .NET, y ejecución local de modelos con ONNX Runtime en C#</em>)</a></li>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.5_Embeddings_y_Bases_de_Datos_Vectoriales_para_.NET/2.5.2_Bases_de_datos_vectoriales_con_soporte_en_CSharp_Azure_AI_Search_Qdrant_.NET_S/">2.5.2 Bases de datos vectoriales con soporte en C# (<em>Azure AI Search, Qdrant .NET SDK, Milvus, y PostgreSQL pgvector vía Entity Framework Core</em>)</a></li>
 </ul>
@@ -3034,7 +3152,7 @@
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.7_Desaf%C3%ADos_de_la_Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/">2.7 Desafíos de la Generación Aumentada por Recuperación</a></li>
 <li><a href="2._Generaci%C3%B3n_Aumentada_por_Recuperaci%C3%B3n/2.8_Consideraciones_de_Seguridad_y_Privacidad_en_entornos_empresariales_Autentic/">2.8 Consideraciones de Seguridad y Privacidad en entornos empresariales (<em>Autenticación con Entra ID, RBAC en Azure</em>)</a></li>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/">3. Implementación del Pipeline RAG en C#</a></li>
-<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.1_Preprocesamiento_de_documentos_PDF_en_.NET/">3.1 Preprocesamiento de documentos PDF en .NET</a><ul>
+<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.1_Preprocesamiento_de_documentos_PDF_en_.NET/">3.1 Preprocesamiento de documentos PDF en .NET</a> <a href="3._Implementación_del_Pipeline_RAG_en_CSharp/3.1_Preprocesamiento_de_documentos_PDF_en_.NET/index.md#316-desafios-estructurales-manejo-de-tablas-imagenes-y-encabezados" class="open-diagram-modal" data-title="Pipeline de Extracción y OCR en .NET">📊</a><ul>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.1_Preprocesamiento_de_documentos_PDF_en_.NET/3.1.1_Extracci%C3%B3n_de_texto_de_PDFs_Librer%C3%ADas_CSharp_UglyToad.PdfPig_iText7_PdfSharp/">3.1.1 Extracción de texto de PDFs (Librerías C#: <em>UglyToad.PdfPig, iText7, PdfSharp</em>)</a></li>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.1_Preprocesamiento_de_documentos_PDF_en_.NET/3.1.2_Manejo_de_m%C3%BAltiples_p%C3%A1ginas/">3.1.2 Manejo de múltiples páginas</a></li>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.1_Preprocesamiento_de_documentos_PDF_en_.NET/3.1.3_Limpieza_y_normalizaci%C3%B3n_de_texto_usando_LINQ_y_expresiones_regulares/">3.1.3 Limpieza y normalización de texto usando LINQ y expresiones regulares</a></li>
@@ -3044,17 +3162,17 @@
 </ul>
 </li>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.2_Implementaci%C3%B3n_del_Pipeline_de_Ingesta_de_Datos/">3.2 Implementación del Pipeline de Ingesta de Datos</a><ul>
-<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.2_Implementaci%C3%B3n_del_Pipeline_de_Ingesta_de_Datos/3.2.1_Impacto_de_la_divisi%C3%B3n_de_texto_Text_Splitting_Chunking_en_la_calidad_de_R/">3.2.1 Impacto de la división de texto (<em>Text Splitting / Chunking</em>) en la calidad de RAG</a></li>
+<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.2_Implementaci%C3%B3n_del_Pipeline_de_Ingesta_de_Datos/3.2.1_Impacto_de_la_divisi%C3%B3n_de_texto_Text_Splitting_Chunking_en_la_calidad_de_R/">3.2.1 Impacto de la división de texto (<em>Text Splitting / Chunking</em>) en la calidad de RAG</a> <a href="3._Implementación_del_Pipeline_RAG_en_CSharp/3.2_Implementación_del_Pipeline_de_Ingesta_de_Datos/3.2.1_Impacto_de_la_división_de_texto_Text_Splitting_Chunking_en_la_calidad_de_R.md#ejemplo-conceptual-de-impacto-en-la-busqueda" class="open-diagram-modal" data-title="Fragmentación de Texto con Overlap">📊</a></li>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.2_Implementaci%C3%B3n_del_Pipeline_de_Ingesta_de_Datos/3.2.2_Implementaci%C3%B3n_de_estrategias_de_fragmentaci%C3%B3n_en_CSharp_Recursiva_Sem%C3%A1ntica_y/">3.2.2 Implementación de estrategias de fragmentación en C#: Recursiva, Semántica y basada en tokens (<em>usando Microsoft.ML.Tokenizers</em>)</a></li>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.2_Implementaci%C3%B3n_del_Pipeline_de_Ingesta_de_Datos/3.2.3_Impacto_de_los_metadatos_en_la_base_de_datos_vectorial/">3.2.3 Impacto de los metadatos en la base de datos vectorial</a></li>
 </ul>
 </li>
-<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.3_Implementaci%C3%B3n_del_Componente_de_Generaci%C3%B3n/">3.3 Implementación del Componente de Generación</a><ul>
+<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.3_Implementaci%C3%B3n_del_Componente_de_Generaci%C3%B3n/">3.3 Implementación del Componente de Generación</a> <a href="3._Implementación_del_Pipeline_RAG_en_CSharp/3.3_Implementación_del_Componente_de_Generación/index.md#331-ingenieria-de-prompts-estructurada-usando-semantic-kernel-prompts" class="open-diagram-modal" data-title="Ensamblado de Prompt Enriquecido">📊</a><ul>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.3_Implementaci%C3%B3n_del_Componente_de_Generaci%C3%B3n/3.3.1_Ingenier%C3%ADa_de_Prompts_estructurada_usando_Semantic_Kernel_Prompts_Handleba/">3.3.1 Ingeniería de Prompts estructurada usando <em>Semantic Kernel Prompts</em> (Handlebars, YAML)</a></li>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.3_Implementaci%C3%B3n_del_Componente_de_Generaci%C3%B3n/3.3.2_Integraci%C3%B3n_del_modelo_generativo_Azure.AI.OpenAI_SDK/">3.3.2 Integración del modelo generativo (<em>Azure.AI.OpenAI SDK</em>)</a></li>
 </ul>
 </li>
-<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.4_Evaluaci%C3%B3n_del_Pipeline_RAG_B%C3%A1sico/">3.4 Evaluación del Pipeline RAG Básico</a><ul>
+<li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.4_Evaluaci%C3%B3n_del_Pipeline_RAG_B%C3%A1sico/">3.4 Evaluación del Pipeline RAG Básico</a> <a href="3._Implementación_del_Pipeline_RAG_en_CSharp/3.4_Evaluación_del_Pipeline_RAG_Básico/index.md#342-metricas-clave-de-rendimiento" class="open-diagram-modal" data-title="Métricas de Evaluación de RAG (Ragas)">📊</a><ul>
 <li><a href="3._Implementaci%C3%B3n_del_Pipeline_RAG_en_CSharp/3.4_Evaluaci%C3%B3n_del_Pipeline_RAG_B%C3%A1sico/3.4.1_M%C3%A9tricas_clave_Relevancia_del_contexto_y_Fidelidad_de_la_respuesta/">3.4.1 Métricas clave: Relevancia del contexto y Fidelidad de la respuesta</a></li>
 </ul>
 </li>
@@ -3067,11 +3185,11 @@
 </li>
 <li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.2_Tama%C3%B1o_%C3%B3ptimo_de_fragmento_Chunk_Size_para_una_recuperaci%C3%B3n_eficiente/">4.2 Tamaño óptimo de fragmento (<em>Chunk Size</em>) para una recuperación eficiente</a></li>
 <li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.3_Fragmentos_de_recuperaci%C3%B3n_vs._Fragmentos_de_s%C3%ADntesis/">4.3 Fragmentos de recuperación vs. Fragmentos de síntesis</a><ul>
-<li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.3_Fragmentos_de_recuperaci%C3%B3n_vs._Fragmentos_de_s%C3%ADntesis/4.3.1_T%C3%A9cnica_del_Documento_Padre_Parent_Document_Retriever_implementada_en_CSharp/">4.3.1 Técnica del Documento Padre (<em>Parent Document Retriever</em>) implementada en C#</a></li>
+<li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.3_Fragmentos_de_recuperaci%C3%B3n_vs._Fragmentos_de_s%C3%ADntesis/4.3.1_T%C3%A9cnica_del_Documento_Padre_Parent_Document_Retriever_implementada_en_CSharp/">4.3.1 Técnica del Documento Padre (<em>Parent Document Retriever</em>) implementada en C#</a> <a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.3_Fragmentos_de_recuperación_vs._Fragmentos_de_síntesis/4.3.1_Técnica_del_Documento_Padre_Parent_Document_Retriever_implementada_en_CSharp.md#el-concepto-padre-vs-hijo" class="open-diagram-modal" data-title="Jerarquía de Documento Padre e Hijo">📊</a></li>
 </ul>
 </li>
 <li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.4_Replanteando_los_m%C3%A9todos_de_recuperaci%C3%B3n_para_corpus_de_documentos_heterog%C3%A9n/">4.4 Replanteando los métodos de recuperación para corpus de documentos heterogéneos</a></li>
-<li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.5_Recuperaci%C3%B3n_H%C3%ADbrida_de_Documentos/">4.5 Recuperación Híbrida de Documentos</a><ul>
+<li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.5_Recuperaci%C3%B3n_H%C3%ADbrida_de_Documentos/">4.5 Recuperación Híbrida de Documentos</a> <a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.5_Recuperación_Híbrida_de_Documentos/index.md#452-reciprocal-rank-fusion-rrf" class="open-diagram-modal" data-title="Búsqueda Híbrida y Fusión RRF">📊</a><ul>
 <li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.5_Recuperaci%C3%B3n_H%C3%ADbrida_de_Documentos/4.5.1_B%C3%BAsqueda_de_texto_completo_BM25_combinada_con_B%C3%BAsqueda_Vectorial_Ejemplo_c/">4.5.1 Búsqueda de texto completo (BM25) combinada con Búsqueda Vectorial (<em>Ejemplo con Azure AI Search Hybrid Query</em>)</a></li>
 </ul>
 </li>
@@ -3079,12 +3197,12 @@
 <li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.7_Enrutamiento_de_consultas_Query_Routing_en_RAG/">4.7 Enrutamiento de consultas (<em>Query Routing</em>) en RAG</a></li>
 <li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.8_Aprovechamiento_del_historial_del_usuario_Memoria_conversacional_en_Semantic/">4.8 Aprovechamiento del historial del usuario (<em>Memoria conversacional en Semantic Kernel / Bot Framework</em>)</a></li>
 <li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.9_Re-clasificaci%C3%B3n_Re-ranking_de_resultados_Uso_de_Azure_AI_Search_Semantic_Ra/">4.9 Re-clasificación (<em>Re-ranking</em>) de resultados (<em>Uso de Azure AI Search Semantic Ranker o Cohere API</em>)</a></li>
-<li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.10_RAG_Basado_en_Agentes_Plugins_Planners_y_Native_Functions_Llamadas_a_funcio/">4.10 RAG Basado en Agentes: <em>Plugins, Planners y Native Functions (Llamadas a funciones) en Semantic Kernel</em></a></li>
+<li><a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.10_RAG_Basado_en_Agentes_Plugins_Planners_y_Native_Functions_Llamadas_a_funcio/">4.10 RAG Basado en Agentes: <em>Plugins, Planners y Native Functions (Llamadas a funciones) en Semantic Kernel</em></a> <a href="4._De_RAG_Simple_a_RAG_Avanzado_con_.NET/4.10_RAG_Basado_en_Agentes_Plugins_Planners_y_Native_Functions_Llamadas_a_funcio.md#4106-ventajas-del-enfoque-agentico-en-net" class="open-diagram-modal" data-title="Bucle de Razonamiento del Agente RAG (ReAct)">📊</a></li>
 <li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/">5. Puesta en Producción, Evaluación y Futuro</a></li>
 <li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/5.1_Marcos_de_evaluaci%C3%B3n_automatizados_para_.NET_Azure_AI_Studio_Prompt_flow_pru/">5.1 Marcos de evaluación automatizados para .NET (<em>Azure AI Studio Prompt flow, pruebas unitarias de LLM con xUnit/NUnit</em>)</a></li>
 <li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/5.2_Despliegue_en_producci%C3%B3n_Creaci%C3%B3n_de_APIs_RAG_con_ASP.NET_Core_Minimal_APIs/">5.2 Despliegue en producción: Creación de APIs RAG con <em>ASP.NET Core Minimal APIs</em>, <em>gRPC</em> o <em>Blazor</em></a></li>
 <li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/5.3_Monitoreo_y_Observabilidad_Integraci%C3%B3n_con_Application_Insights_y_OpenTeleme/">5.3 Monitoreo y Observabilidad (<em>Integración con Application Insights y OpenTelemetry en .NET</em>)</a></li>
-<li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/5.4_Arquitecturas_escalables_Ingesta_as%C3%ADncrona_de_PDFs_usando_Azure_Functions_Az/">5.4 Arquitecturas escalables: Ingesta asíncrona de PDFs usando <em>Azure Functions, Azure Event Grid o RabbitMQ</em></a></li>
+<li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/5.4_Arquitecturas_escalables_Ingesta_as%C3%ADncrona_de_PDFs_usando_Azure_Functions_Az/">5.4 Arquitecturas escalables: Ingesta asíncrona de PDFs usando <em>Azure Functions, Azure Event Grid o RabbitMQ</em></a> <a href="5._Puesta_en_Producción_Evaluación_y_Futuro/5.4_Arquitecturas_escalables_Ingesta_asíncrona_de_PDFs_usando_Azure_Functions_Az.md#542-implementacion-con-azure-functions-y-azure-event-grid" class="open-diagram-modal" data-title="Arquitectura de Ingesta Asíncrona Escalable">📊</a></li>
 <li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/5.5_El_futuro_RAG_vs._LLMs_con_ventanas_de_contexto_ultra_largas/">5.5 El futuro: RAG vs. LLMs con ventanas de contexto ultra largas</a></li>
 <li><a href="5._Puesta_en_Producci%C3%B3n_Evaluaci%C3%B3n_y_Futuro/5.6_Conclusiones_finales_y_pr%C3%B3ximos_pasos/">5.6 Conclusiones finales y próximos pasos</a></li>
 </ul>
@@ -3148,8 +3266,150 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.code.annotate", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
     
     
+  
       <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 1. Create Modal elements dynamically
+      const overlay = document.createElement("div");
+      overlay.className = "modal-overlay";
+      overlay.innerHTML = `
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3 class="modal-title">Esquema</h3>
+            <button class="modal-close" aria-label="Cerrar">&times;</button>
+          </div>
+          <div class="modal-content">
+            <div class="modal-spinner"></div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+
+      const closeBtn = overlay.querySelector(".modal-close");
+      const modalContent = overlay.querySelector(".modal-content");
+      const modalTitle = overlay.querySelector(".modal-title");
+
+      // Close modal events
+      closeBtn.addEventListener("click", () => overlay.classList.remove("active"));
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) overlay.classList.remove("active");
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && overlay.classList.contains("active")) {
+          overlay.classList.remove("active");
+        }
+      });
+
+      // Helper to initialize mermaid inside modal
+      function renderMermaid(container) {
+        if (typeof mermaid === "undefined") {
+          const script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js";
+          script.onload = () => {
+            mermaid.initialize({ 
+              startOnLoad: false,
+              theme: document.body.getAttribute("data-md-color-scheme") === "slate" ? "dark" : "default"
+            });
+            mermaid.init(undefined, container.querySelectorAll(".mermaid"));
+          };
+          document.head.appendChild(script);
+        } else {
+          // Re-initialize config for dark/light theme match
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: document.body.getAttribute("data-md-color-scheme") === "slate" ? "dark" : "default"
+          });
+          mermaid.init(undefined, container.querySelectorAll(".mermaid"));
+        }
+      }
+
+      // 2. Intercept click on links with class 'open-diagram-modal'
+      document.body.addEventListener("click", function(e) {
+        const link = e.target.closest(".open-diagram-modal");
+        if (link) {
+          e.preventDefault();
+          const href = link.href;
+          if (!href) return;
+
+          // Open modal and show loading spinner
+          const title = link.getAttribute("data-title") || "Esquema Conceptual";
+          modalTitle.textContent = title;
+          modalContent.innerHTML = '<div class="modal-spinner"></div>';
+          overlay.classList.add("active");
+
+          // Parse URL (path and hash)
+          const parts = href.split("#");
+          const urlPath = parts[0];
+          const hashId = parts[1];
+
+          // Fetch the page content
+          fetch(urlPath)
+            .then(res => {
+              if (!res.ok) throw new Error("Network response was not ok");
+              return res.text();
+            })
+            .then(html => {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(html, "text/html");
+              
+              let mermaidCode = "";
+              
+              if (hashId) {
+                const targetEl = doc.getElementById(hashId);
+                if (targetEl) {
+                  // Search siblings preceding the header (since diagrams are before them)
+                  let sibling = targetEl.previousElementSibling;
+                  while (sibling) {
+                    if (sibling.classList.contains("mermaid") || sibling.querySelector(".mermaid")) {
+                      const mBlock = sibling.classList.contains("mermaid") ? sibling : sibling.querySelector(".mermaid");
+                      mermaidCode = mBlock.textContent;
+                      break;
+                    }
+                    sibling = sibling.previousElementSibling;
+                  }
+                  
+                  // Fallback: search siblings after the header
+                  if (!mermaidCode) {
+                    sibling = targetEl.nextElementSibling;
+                    while (sibling) {
+                      if (sibling.classList.contains("mermaid") || sibling.querySelector(".mermaid")) {
+                        const mBlock = sibling.classList.contains("mermaid") ? sibling : sibling.querySelector(".mermaid");
+                        mermaidCode = mBlock.textContent;
+                        break;
+                      }
+                      sibling = sibling.nextElementSibling;
+                    }
+                  }
+                }
+              }
+
+              // Fallback: search for first mermaid block on page if no anchor match
+              if (!mermaidCode) {
+                const firstMermaid = doc.querySelector(".mermaid");
+                if (firstMermaid) {
+                  mermaidCode = firstMermaid.textContent;
+                }
+              }
+
+              if (mermaidCode) {
+                // Clear content and insert a fresh mermaid div
+                modalContent.innerHTML = `<div class="mermaid" style="width:100%;">${mermaidCode}</div>`;
+                renderMermaid(modalContent);
+              } else {
+                modalContent.innerHTML = "<p style='color:var(--md-typeset-color, #ef4444); font-weight:600;'>No se pudo encontrar el esquema en la página.</p>";
+              }
+            })
+            .catch(err => {
+              console.error(err);
+              modalContent.innerHTML = "<p style='color:var(--md-typeset-color, #ef4444); font-weight:600;'>Error al cargar el esquema.</p>";
+            });
+        }
+      });
+    });
+  </script>
+
   </body>
 </html>
