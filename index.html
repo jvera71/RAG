@@ -3209,24 +3209,27 @@
 <div style="display: none;" id="local-diagrams-store">
 
 <div id="diagram-1.3">
-<pre class="mermaid"><code>flowchart TD
-    A([👤 Consulta del Usuario]) --&gt; B["🔍 **Recuperación**\n(Retrieval)"]
-    B --&gt; C[(Base de Datos\nVectorial / PDFs)]
-    C --&gt; D[Fragmentos\nRelevantes]
-    D --&gt; E["✏️ **Aumentación**\n(Augmentation)"]
-    A --&gt; E
-    E --&gt; F["📝 Prompt Enriquecido\n= Instrucción + Contexto + Pregunta"]
-    F --&gt; G["🤖 **Generación**\n(Generation) — LLM"]
-    G --&gt; H([✅ Respuesta Fundamentada\ncon citas de fuente])
+<pre class="mermaid-template">
+flowchart TD
+    A([👤 Consulta del Usuario]) --> B["🔍 **Recuperación**\n(Retrieval)"]
+    B --> C[(Base de Datos\nVectorial / PDFs)]
+    C --> D[Fragmentos\nRelevantes]
+    D --> E["✏️ **Aumentación**\n(Augmentation)"]
+    A --> E
+    E --> F["📝 Prompt Enriquecido\n= Instrucción + Contexto + Pregunta"]
+    F --> G["🤖 **Generación**\n(Generation) — LLM"]
+    G --> H([✅ Respuesta Fundamentada\ncon citas de fuente])
 
     style A fill:#4f46e5,color:#fff,stroke:#3730a3
     style H fill:#059669,color:#fff,stroke:#047857
     style G fill:#0ea5e9,color:#fff,stroke:#0284c7
-    style C fill:#f59e0b,color:#fff,stroke:#d97706</code></pre>
+    style C fill:#f59e0b,color:#fff,stroke:#d97706
+</pre>
 </div>
 
 <div id="diagram-1.5">
-<pre class="mermaid"><code>flowchart TD
+<pre class="mermaid-template">
+flowchart TD
     subgraph UI ["Capa de Aplicación / Presentación"]
         A["ASP.NET Core Web API / Blazor / Worker"]
     end
@@ -3245,70 +3248,78 @@
         D2["Modelos LLM\n(GPT-4o, Llama 3 via ONNX/Ollama)"]
     end
 
-    A --&gt; B
-    B --&gt; C1
-    B --&gt; C2
-    C1 --&gt; D1
-    C2 --&gt; D2</code></pre>
+    A --> B
+    B --> C1
+    B --> C2
+    C1 --> D1
+    C2 --> D2
+</pre>
 </div>
 
 <div id="diagram-2.3">
-<pre class="mermaid"><code>flowchart TB
+<pre class="mermaid-template">
+flowchart TB
     subgraph OFFLINE ["⚙️ Pipeline de Ingesta — OFFLINE / Background"]
         direction LR
-        P1(["📄 Documento PDF"]) --&gt; P2["Extracción\nde Texto"]
-        P2 --&gt; P3["Fragmentación\n(Chunking)"]
-        P3 --&gt; P4["Generación de\nEmbeddings"]
-        P4 --&gt; P5[("🗄️ Vector\nDatabase")]
+        P1(["📄 Documento PDF"]) --> P2["Extracción\nde Texto"]
+        P2 --> P3["Fragmentación\n(Chunking)"]
+        P3 --> P4["Generación de\nEmbeddings"]
+        P4 --> P5[("🗄️ Vector\nDatabase")]
     end
 
     subgraph ONLINE ["⚡ Pipeline de Inferencia — ONLINE / Real-time"]
         direction LR
-        Q1(["👤 Pregunta\ndel Usuario"]) --&gt; Q2["Vectorización\nde Consulta"]
-        Q2 --&gt; Q3["Búsqueda\nVectorial"]
-        Q3 --&gt; Q4["Construcción\ndel Prompt"]
-        Q4 --&gt; Q5["🤖 LLM"]
-        Q5 --&gt; Q6(["✅ Respuesta"])
+        Q1(["👤 Pregunta\ndel Usuario"]) --> Q2["Vectorización\nde Consulta"]
+        Q2 --> Q3["Búsqueda\nVectorial"]
+        Q3 --> Q4["Construcción\ndel Prompt"]
+        Q4 --> Q5["🤖 LLM"]
+        Q5 --> Q6(["✅ Respuesta"])
     end
 
-    P5 -.-&gt;|"Top-K fragmentos\nrelevantes"| Q3
+    P5 -.->|"Top-K fragmentos\nrelevantes"| Q3
 
     style OFFLINE fill:#1e293b,stroke:#475569,color:#cbd5e1
     style ONLINE fill:#0f172a,stroke:#334155,color:#cbd5e1
     style P5 fill:#f59e0b,color:#000,stroke:#d97706
     style Q5 fill:#0ea5e9,color:#fff,stroke:#0284c7
     style Q1 fill:#4f46e5,color:#fff,stroke:#3730a3
-    style Q6 fill:#059669,color:#fff,stroke:#047857</code></pre>
+    style Q6 fill:#059669,color:#fff,stroke:#047857
+</pre>
 </div>
 
 <div id="diagram-2.5">
-<pre class="mermaid"><code>flowchart LR
+<pre class="mermaid-template">
+flowchart LR
     subgraph VectorSpace ["Espacio Vectorial Latente (Representación Conceptual)"]
         direction TB
-        C1["🔵 Vector 'C#'\n[0.23, 0.89, -0.45]"] &lt;--&gt;|Similitud Alta\nCoseno ≈ 0.95| C2["🔵 Vector '.NET'\n[0.21, 0.87, -0.42]"]
-        C1 -.-&gt;|Similitud Baja\nCoseno ≈ 0.12| F1["🔴 Vector 'Cocina'\n[-0.85, 0.11, 0.73]"]
+        C1["🔵 Vector 'C#'\n[0.23, 0.89, -0.45]"] <-->|Similitud Alta\nCoseno ≈ 0.95| C2["🔵 Vector '.NET'\n[0.21, 0.87, -0.42]"]
+        C1 -.->|Similitud Baja\nCoseno ≈ 0.12| F1["🔴 Vector 'Cocina'\n[-0.85, 0.11, 0.73]"]
     end
-    Q["💬 Consulta: '¿Cómo programar en C#?'"] --&gt;|Embeddings| QV["🟢 Vector Consulta\n[0.22, 0.88, -0.44]"]
-    QV --&gt;|Busca Cercanía| C1</code></pre>
+    Q["💬 Consulta: '¿Cómo programar en C#?'"] -->|Embeddings| QV["🟢 Vector Consulta\n[0.22, 0.88, -0.44]"]
+    QV -->|Busca Cercanía| C1
+</pre>
 </div>
 
 <div id="diagram-3.1">
-<pre class="mermaid"><code>flowchart TD
+<pre class="mermaid-template">
+flowchart TD
     PDF{"📄 Tipo de PDF"}
-    PDF -- "Digital / Texto Nativo" --&gt; Simple["UglyToad.PdfPig (Local)\nExtrae caracteres y palabras"]
-    PDF -- "Escaneado / Imagen" --&gt; OCR["Azure AI Document Intelligence (OCR)\no Tesseract.NET"]
+    PDF -- "Digital / Texto Nativo" --> Simple["UglyToad.PdfPig (Local)\nExtrae caracteres y palabras"]
+    PDF -- "Escaneado / Imagen" --> OCR["Azure AI Document Intelligence (OCR)\no Tesseract.NET"]
 
-    Simple --&gt; Clean["Limpieza de Ruido\n(Regex + LINQ)"]
-    OCR --&gt; Markdown["Conversión a Markdown\n(Conserva tablas y jerarquía)"]
+    Simple --> Clean["Limpieza de Ruido\n(Regex + LINQ)"]
+    OCR --> Markdown["Conversión a Markdown\n(Conserva tablas y jerarquía)"]
 
-    Clean --&gt; Meta["Añadir Metadatos\n(Número de página, archivo origen)"]
-    Markdown --&gt; Meta
+    Clean --> Meta["Añadir Metadatos\n(Número de página, archivo origen)"]
+    Markdown --> Meta
 
-    Meta --&gt; Out["Colección DocumentPage\nlista para segmentar"]</code></pre>
+    Meta --> Out["Colección DocumentPage\nlista para segmentar"]
+</pre>
 </div>
 
 <div id="diagram-3.2.1">
-<pre class="mermaid"><code>flowchart TD
+<pre class="mermaid-template">
+flowchart TD
     subgraph TEXTO_ORIGINAL ["Texto Completo de Entrada"]
         T["... El desarrollo RAG en C# requiere Semantic Kernel. La ingesta es la fase crítica del proceso ..."]
     end
@@ -3319,33 +3330,39 @@
         C3["🧩 Fragmento 3:\n'... La ingesta es la fase crítica del proceso ...'"]
     end
 
-    T --&gt; C1
-    T --&gt; C2
-    T --&gt; C3
+    T --> C1
+    T --> C2
+    T --> C3
 
-    C1 -.-&gt;|Solape / Overlap| C2
-    C2 -.-&gt;|Solape / Overlap| C3</code></pre>
+    C1 -.->|Solape / Overlap| C2
+    C2 -.->|Solape / Overlap| C3
+</pre>
 </div>
 
 <div id="diagram-3.3">
-<pre class="mermaid"><code>flowchart TD
-    SYS["⚙️ Mensaje del Sistema\n(Instrucciones de restricción)"] --&gt; PROMPT["📝 Prompt Enriquecido Final"]
-    CTX["📚 Contexto Recuperado\n(Fragmentos de PDFs relevantes)"] --&gt; PROMPT
-    USER["💬 Pregunta del Usuario\n(Consulta original)"] --&gt; PROMPT
+<pre class="mermaid-template">
+flowchart TD
+    SYS["⚙️ Mensaje del Sistema\n(Instrucciones de restricción)"] --> PROMPT["📝 Prompt Enriquecido Final"]
+    CTX["📚 Contexto Recuperado\n(Fragmentos de PDFs relevantes)"] --> PROMPT
+    USER["💬 Pregunta del Usuario\n(Consulta original)"] --> PROMPT
 
-    PROMPT --&gt; LLM["🤖 LLM (Generación)"]
-    LLM --&gt; ANS["✅ Respuesta al Usuario"]</code></pre>
+    PROMPT --> LLM["🤖 LLM (Generación)"]
+    LLM --> ANS["✅ Respuesta al Usuario"]
+</pre>
 </div>
 
 <div id="diagram-3.4">
-<pre class="mermaid"><code>flowchart TD
-    Q["💬 Pregunta del Usuario"] &lt;--&gt;|Relevancia del Contexto\n(¿Es útil para responder?)| C["📚 Contexto Recuperado"]
-    C &lt;--&gt;|Fidelidad / Faithfulness\n(¿La respuesta se basa en el contexto?)| A["✅ Respuesta Generada"]
-    Q &lt;--&gt;|Relevancia de Respuesta\n(¿Responde directamente a la pregunta?)| A</code></pre>
+<pre class="mermaid-template">
+flowchart TD
+    Q["💬 Pregunta del Usuario"] <-->|Relevancia del Contexto\n(¿Es útil para responder?)| C["📚 Contexto Recuperado"]
+    C <-->|Fidelidad / Faithfulness\n(¿La respuesta se basa en el contexto?)| A["✅ Respuesta Generada"]
+    Q <-->|Relevancia de Respuesta\n(¿Responde directamente a la pregunta?)| A
+</pre>
 </div>
 
 <div id="diagram-4.3">
-<pre class="mermaid"><code>classDiagram
+<pre class="mermaid-template">
+classDiagram
     direction TB
     class ParentDocument {
         +string Id
@@ -3375,45 +3392,52 @@
     }
 
     ParentDocument "1" *-- "N" ChildDocument : contiene
-    ChildDocument --&gt; VectorDatabase : indexado en
-    ParentDocument --&gt; DocumentStore : almacenado en
-    VectorDatabase ..&gt; DocumentStore : lookup por ParentId</code></pre>
+    ChildDocument --> VectorDatabase : indexado en
+    ParentDocument --> DocumentStore : almacenado en
+    VectorDatabase ..> DocumentStore : lookup por ParentId
+</pre>
 </div>
 
 <div id="diagram-4.5">
-<pre class="mermaid"><code>flowchart TD
-    Query["💬 Consulta del Usuario"] --&gt; BM25["🔎 Motor Léxico (BM25)\nBusca palabras exactas"]
-    Query --&gt; Embed["🧠 Generación de Vector"]
-    Embed --&gt; Vector["🔎 Búsqueda Vectorial (HNSW)\nBusca significado"]
+<pre class="mermaid-template">
+flowchart TD
+    Query["💬 Consulta del Usuario"] --> BM25["🔎 Motor Léxico (BM25)\nBusca palabras exactas"]
+    Query --> Embed["🧠 Generación de Vector"]
+    Embed --> Vector["🔎 Búsqueda Vectorial (HNSW)\nBusca significado"]
 
-    BM25 --&gt; List1["Lista 1:\n1. Doc A\n2. Doc B\n3. Doc C"]
-    Vector --&gt; List2["Lista 2:\n1. Doc C\n2. Doc A\n3. Doc D"]
+    BM25 --> List1["Lista 1:\n1. Doc A\n2. Doc B\n3. Doc C"]
+    Vector --> List2["Lista 2:\n1. Doc C\n2. Doc A\n3. Doc D"]
 
-    List1 --&gt; RRF["⚡ Algoritmo RRF (Reciprocal Rank Fusion)\nPuntuación por posición"]
-    List2 --&gt; RRF
+    List1 --> RRF["⚡ Algoritmo RRF (Reciprocal Rank Fusion)\nPuntuación por posición"]
+    List2 --> RRF
 
-    RRF --&gt; FinalList["📋 Lista Híbrida Resultante:\n1. Doc A (Score RRF: 0.032)\n2. Doc C (Score RRF: 0.031)\n3. Doc B (Score RRF: 0.016)"]</code></pre>
+    RRF --> FinalList["📋 Lista Híbrida Resultante:\n1. Doc A (Score RRF: 0.032)\n2. Doc C (Score RRF: 0.031)\n3. Doc B (Score RRF: 0.016)"]
+</pre>
 </div>
 
 <div id="diagram-4.10">
-<pre class="mermaid"><code>flowchart TD
-    Q(["💬 Consulta Compleja"]) --&gt; Thought["🤔 Pensamiento\n(¿Qué información necesito?)"]
-    Thought --&gt; Action["🛠️ Acción\n(Ejecutar Plugin / Función C#)"]
-    Action --&gt; Obs["👁️ Observación\n(Resultado de la herramienta)"]
-    Obs --&gt; Check{"❓ ¿Tengo suficiente\ninformación?"}
-    Check -- No --&gt; Thought
-    Check -- Sí --&gt; Final["🤖 Generar Respuesta Final"]</code></pre>
+<pre class="mermaid-template">
+flowchart TD
+    Q(["💬 Consulta Compleja"]) --> Thought["🤔 Pensamiento\n(¿Qué información necesito?)"]
+    Thought --> Action["🛠️ Acción\n(Ejecutar Plugin / Función C#)"]
+    Action --> Obs["👁️ Observación\n(Resultado de la herramienta)"]
+    Obs --> Check{"❓ ¿Tengo suficiente\ninformación?"}
+    Check -- No --> Thought
+    Check -- Sí --> Final["🤖 Generar Respuesta Final"]
+</pre>
 </div>
 
 <div id="diagram-5.4">
-<pre class="mermaid"><code>flowchart LR
-    A["💻 Cliente (Subir PDF)"] --&gt; B["🌐 ASP.NET Core API"]
-    B --&gt;|1. Guarda Archivo| C["🪣 Azure Blob Storage"]
-    B --&gt;|2. Encola Mensaje| D["📥 Azure Storage Queue / RabbitMQ"]
+<pre class="mermaid-template">
+flowchart LR
+    A["💻 Cliente (Subir PDF)"] --> B["🌐 ASP.NET Core API"]
+    B -->|1. Guarda Archivo| C["🪣 Azure Blob Storage"]
+    B -->|2. Encola Mensaje| D["📥 Azure Storage Queue / RabbitMQ"]
 
-    D --&gt;|3. Trigger de Evento| E["⚡ Worker Service / Azure Function"]
-    E --&gt;|4. Descarga PDF| C
-    E --&gt;|5. Procesa, fragmenta e indexa| F[("🗄️ Azure AI Search / Qdrant")]</code></pre>
+    D -->|3. Trigger de Evento| E["⚡ Worker Service / Azure Function"]
+    E -->|4. Descarga PDF| C
+    E -->|5. Procesa, fragmenta e indexa| F[("🗄️ Azure AI Search / Qdrant")]
+</pre>
 </div>
 
 </div>
@@ -3555,7 +3579,7 @@
           if (diagramId) {
             const localStoreEl = document.getElementById(diagramId);
             if (localStoreEl) {
-              const mBlock = localStoreEl.querySelector(".mermaid") || localStoreEl;
+              const mBlock = localStoreEl.querySelector(".mermaid-template") || localStoreEl.querySelector(".mermaid") || localStoreEl;
               const mermaidCode = mBlock.textContent;
               if (mermaidCode) {
                 modalContent.innerHTML = `<div class="mermaid" style="width:100%;">${mermaidCode}</div>`;

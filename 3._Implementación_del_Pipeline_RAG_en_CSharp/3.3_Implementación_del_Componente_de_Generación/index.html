@@ -3613,7 +3613,7 @@
           if (diagramId) {
             const localStoreEl = document.getElementById(diagramId);
             if (localStoreEl) {
-              const mBlock = localStoreEl.querySelector(".mermaid") || localStoreEl;
+              const mBlock = localStoreEl.querySelector(".mermaid-template") || localStoreEl.querySelector(".mermaid") || localStoreEl;
               const mermaidCode = mBlock.textContent;
               if (mermaidCode) {
                 modalContent.innerHTML = `<div class="mermaid" style="width:100%;">${mermaidCode}</div>`;
