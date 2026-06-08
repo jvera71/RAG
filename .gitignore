@@ -1,0 +1,15 @@
+# MkDocs build directory
+site/
+
+# Local configuration and cache
+.vs/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
