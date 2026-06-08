@@ -3503,7 +3503,6 @@
           };
           document.head.appendChild(script);
         } else {
-          // Re-initialize config for dark/light theme match
           mermaid.initialize({
             startOnLoad: false,
             theme: document.body.getAttribute("data-md-color-scheme") === "slate" ? "dark" : "default"
@@ -3526,12 +3525,26 @@
           modalContent.innerHTML = '<div class="modal-spinner"></div>';
           overlay.classList.add("active");
 
-          // Parse URL (path and hash)
+          // Check if diagram can be loaded from the local DOM store first (failsafe for file:// protocol and instant load)
+          const diagramId = link.getAttribute("data-diagram-id");
+          if (diagramId) {
+            const localStoreEl = document.getElementById(diagramId);
+            if (localStoreEl) {
+              const mBlock = localStoreEl.querySelector(".mermaid") || localStoreEl;
+              const mermaidCode = mBlock.textContent;
+              if (mermaidCode) {
+                modalContent.innerHTML = `<div class="mermaid" style="width:100%;">${mermaidCode}</div>`;
+                renderMermaid(modalContent);
+                return; // Instant exit!
+              }
+            }
+          }
+
+          // Fallback: Fetch the page content (e.g. if loaded via http/https)
           const parts = href.split("#");
           const urlPath = parts[0];
           const hashId = parts[1];
 
-          // Fetch the page content
           fetch(urlPath)
             .then(res => {
               if (!res.ok) throw new Error("Network response was not ok");
@@ -3546,7 +3559,6 @@
               if (hashId) {
                 const targetEl = doc.getElementById(hashId);
                 if (targetEl) {
-                  // Search siblings preceding the header (since diagrams are before them)
                   let sibling = targetEl.previousElementSibling;
                   while (sibling) {
                     if (sibling.classList.contains("mermaid") || sibling.querySelector(".mermaid")) {
@@ -3556,8 +3568,6 @@
                     }
                     sibling = sibling.previousElementSibling;
                   }
-                  
-                  // Fallback: search siblings after the header
                   if (!mermaidCode) {
                     sibling = targetEl.nextElementSibling;
                     while (sibling) {
@@ -3572,7 +3582,6 @@
                 }
               }
 
-              // Fallback: search for first mermaid block on page if no anchor match
               if (!mermaidCode) {
                 const firstMermaid = doc.querySelector(".mermaid");
                 if (firstMermaid) {
@@ -3581,7 +3590,6 @@
               }
 
               if (mermaidCode) {
-                // Clear content and insert a fresh mermaid div
                 modalContent.innerHTML = `<div class="mermaid" style="width:100%;">${mermaidCode}</div>`;
                 renderMermaid(modalContent);
               } else {
@@ -3590,7 +3598,12 @@
             })
             .catch(err => {
               console.error(err);
-              modalContent.innerHTML = "<p style='color:var(--md-typeset-color, #ef4444); font-weight:600;'>Error al cargar el esquema.</p>";
+              modalContent.innerHTML = "<div style='color:var(--md-typeset-color, #ef4444); font-weight:600; text-align:center; padding: 12px;'>" +
+                "<p style='margin:0 0 8px 0;'>Error al cargar el esquema.</p>" +
+                "<p style='font-size:0.85rem; font-weight:normal; opacity:0.8; margin:0;'>" +
+                "El protocolo de archivos local (file://) bloquea la lectura de otros archivos por seguridad del navegador.<br>" +
+                "Puedes iniciar un servidor local ejecutando <code>mkdocs serve</code> en la terminal, o navegar directamente al artículo para ver el diagrama." +
+                "</p></div>";
             });
         }
       });
