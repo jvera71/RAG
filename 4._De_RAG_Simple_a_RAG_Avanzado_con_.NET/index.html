@@ -185,6 +185,90 @@
       color: #ffffff !important;
       transform: translateY(-1px);
     }
+
+    /* Panel de contacto inferior */
+    .custom-contact-panel {
+      margin-top: 48px;
+      padding: 36px 24px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+      border: 1px solid var(--md-primary-fg-color--transparent, rgba(79, 70, 229, 0.15));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.05);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    [data-md-color-scheme="slate"] .custom-contact-panel {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+      border-color: rgba(79, 70, 229, 0.25);
+      box-shadow: 0 10px 35px -10px rgba(0, 0, 0, 0.3);
+    }
+    .custom-contact-panel:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.15);
+      border-color: var(--md-primary-fg-color, #4f46e5);
+    }
+    .custom-contact-panel::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--md-primary-fg-color--transparent, rgba(79, 70, 229, 0.04)) 0%, transparent 60%);
+      pointer-events: none;
+      transition: transform 0.5s ease;
+    }
+    .custom-contact-panel:hover::before {
+      transform: scale(1.05);
+    }
+    .custom-contact-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0;
+      background: linear-gradient(90deg, var(--md-primary-fg-color, #4f46e5), #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+    .custom-contact-subtitle {
+      font-size: 1.05rem;
+      margin: 0;
+      color: var(--md-typeset-color, #475569);
+      font-weight: 500;
+      opacity: 0.95;
+      max-width: 500px;
+      line-height: 1.5;
+    }
+    .custom-contact-button {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: var(--md-primary-fg-color, #4f46e5);
+      color: #ffffff !important;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px var(--md-primary-fg-color--transparent, rgba(79, 70, 229, 0.35));
+      transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .custom-contact-button:hover {
+      background-color: var(--md-accent-fg-color, #7c3aed);
+      transform: scale(1.03);
+      box-shadow: 0 6px 22px var(--md-primary-fg-color--transparent, rgba(79, 70, 229, 0.5));
+    }
+    .custom-contact-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
   </style>
 
   </head>
@@ -3411,6 +3495,7 @@
               
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
 
@@ -3546,6 +3631,19 @@
 
 
                 
+  
+  <!-- Panel de contacto interactivo al final de cada artículo -->
+  <div class="custom-contact-panel">
+    <h3 class="custom-contact-title">¿Programas mejor que yo?</h3>
+    <p class="custom-contact-subtitle">Me gusta aprender, cuéntamelo...</p>
+    <a href="mailto:programomejorquetu@hotmail.com" class="custom-contact-button">
+      <svg class="custom-contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+      programomejorquetu@hotmail.com
+    </a>
+  </div>
+
               </article>
             </div>
           
