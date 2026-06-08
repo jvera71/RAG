@@ -56,6 +56,16 @@
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HLNJJD20B4"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HLNJJD20B4",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HLNJJD20B4",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3246,6 +3256,23 @@
 <li><strong>Impacto de un solapamiento bajo:</strong> Riesgo de fragmentar conceptos que dependen de la frase anterior.</li>
 <li><strong>Impacto de un solapamiento alto:</strong> Aumento de la redundancia en los resultados recuperados, lo que consume más ventana de contexto del LLM sin aportar información nueva.</li>
 </ul>
+<pre class="mermaid"><code>flowchart TD
+    subgraph TEXTO_ORIGINAL ["Texto Completo de Entrada"]
+        T["... El desarrollo RAG en C# requiere Semantic Kernel. La ingesta es la fase crítica del proceso ..."]
+    end
+
+    subgraph CHUNKS ["Fragmentos Segmentados"]
+        C1["🧩 Fragmento 1:\n'... El desarrollo RAG en C# requiere Semantic Kernel ...'"]
+        C2["🧩 Fragmento 2:\n'... requiere Semantic Kernel. La ingesta es la fase ...'"]
+        C3["🧩 Fragmento 3:\n'... La ingesta es la fase crítica del proceso ...'"]
+    end
+
+    T --&gt; C1
+    T --&gt; C2
+    T --&gt; C3
+
+    C1 -.-&gt;|Solape / Overlap| C2
+    C2 -.-&gt;|Solape / Overlap| C3</code></pre>
 <h4 id="ejemplo-conceptual-de-impacto-en-la-busqueda">Ejemplo conceptual de impacto en la búsqueda</h4>
 <p>Imagine que el PDF dice: <em>"El sensor de temperatura debe calibrarse cada 6 meses. Sin embargo, en ambientes corrosivos, este periodo debe reducirse a 2 meses."</em></p>
 <ul>
@@ -3275,6 +3302,8 @@
 
 
 
+
+  
 
 
 

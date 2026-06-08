@@ -56,6 +56,16 @@
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HLNJJD20B4"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HLNJJD20B4",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HLNJJD20B4",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3205,6 +3215,30 @@
 <h3 id="154-abstracciones-unificadas-microsoftextensionsai">1.5.4 Abstracciones Unificadas: <code>Microsoft.Extensions.AI</code></h3>
 <p>Recientemente, Microsoft ha introducido el paquete <code>Microsoft.Extensions.AI</code> (actualmente en vista previa). Su objetivo es proporcionar una <strong>capa de abstracción común</strong> similar a <code>ILogger</code> o <code>IEnumerable</code>, pero para servicios de IA.</p>
 <p>Esto permite que los desarrolladores escriban código RAG que sea agnóstico al proveedor: puedes intercambiar un modelo de OpenAI por uno local ejecutándose en Ollama o LlamaSharp sin cambiar la lógica central del pipeline, simplemente registrando una implementación diferente en el contenedor de inyección de dependencias.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph UI ["Capa de Aplicación / Presentación"]
+        A["ASP.NET Core Web API / Blazor / Worker"]
+    end
+
+    subgraph ORCH ["Capa de Orquestación de IA"]
+        B["Microsoft Semantic Kernel / Microsoft.Extensions.AI"]
+    end
+
+    subgraph DATA_CONN ["Capa de Conectores e Integración"]
+        C1["Conector Vectorial\n(IVectorStore)"]
+        C2["Conector LLM / Chat\n(Azure.AI.OpenAI)"]
+    end
+
+    subgraph INFRA ["Infraestructura y Datos"]
+        D1[("Base de Datos Vectorial\n(Qdrant, Azure AI Search)")]
+        D2["Modelos LLM\n(GPT-4o, Llama 3 via ONNX/Ollama)"]
+    end
+
+    A --&gt; B
+    B --&gt; C1
+    B --&gt; C2
+    C1 --&gt; D1
+    C2 --&gt; D2</code></pre>
 <h3 id="155-resumen-de-herramientas-complementarias">1.5.5 Resumen de herramientas complementarias</h3>
 <p>Para que este ecosistema funcione, se apoya en librerías que profundizaremos en los capítulos 2 y 3:
 *   <strong>Entity Framework Core:</strong> Con extensiones como <code>PGVector</code> para PostgreSQL.
@@ -3219,6 +3253,8 @@
 
 
 
+
+  
 
 
 

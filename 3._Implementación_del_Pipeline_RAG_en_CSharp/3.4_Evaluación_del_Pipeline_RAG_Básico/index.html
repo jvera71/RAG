@@ -56,6 +56,16 @@
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HLNJJD20B4"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HLNJJD20B4",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HLNJJD20B4",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3256,6 +3266,10 @@
 <li><strong>Evaluación del Recuperador (Retrieval):</strong> ¿Son relevantes para la pregunta los fragmentos extraídos de la base de datos vectorial?</li>
 <li><strong>Evaluación del Generador (Generation):</strong> ¿La respuesta generada por el LLM es veraz respecto al contexto y responde realmente a la duda del usuario?</li>
 </ol>
+<pre class="mermaid"><code>flowchart TD
+    Q["💬 Pregunta del Usuario"] &lt;--&gt;|Relevancia del Contexto\n(¿Es útil para responder?)| C["📚 Contexto Recuperado"]
+    C &lt;--&gt;|Fidelidad / Faithfulness\n(¿La respuesta se basa en el contexto?)| A["✅ Respuesta Generada"]
+    Q &lt;--&gt;|Relevancia de Respuesta\n(¿Responde directamente a la pregunta?)| A</code></pre>
 <h3 id="342-metricas-clave-de-rendimiento">3.4.2 Métricas clave de rendimiento</h3>
 <p>Para cuantificar la calidad, utilizamos principalmente tres métricas (a menudo referidas como la "Tríada de RAG"):</p>
 <h4 id="a-relevancia-del-contexto-context-relevance">A. Relevancia del Contexto (Context Relevance)</h4>
@@ -3345,6 +3359,8 @@ Podemos utilizar archivos <code>.json</code> o archivos de recursos <code>.resx<
 
 
 
+
+  
 
 
 

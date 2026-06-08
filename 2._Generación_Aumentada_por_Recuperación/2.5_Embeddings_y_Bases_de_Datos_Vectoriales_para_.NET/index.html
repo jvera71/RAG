@@ -56,6 +56,16 @@
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HLNJJD20B4"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HLNJJD20B4",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HLNJJD20B4",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3279,6 +3289,14 @@
 <p>En el contexto de un sistema RAG, la capacidad de transformar información textual en una representación que una máquina pueda "entender" semánticamente es fundamental. En esta sección, profundizaremos en cómo .NET gestiona los <strong>embeddings</strong> y qué opciones de <strong>bases de datos vectoriales</strong> existen para persistir y consultar estos datos de manera eficiente.</p>
 <h3 id="251-modelos-de-embeddings">2.5.1 Modelos de Embeddings</h3>
 <p>Un <em>embedding</em> es una representación numérica (un vector de números de punto flotante) de un fragmento de texto. A diferencia de una búsqueda por palabras clave tradicional, los embeddings capturan el <strong>significado semántico</strong>. En .NET, tenemos tres vías principales para generar estos vectores:</p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph VectorSpace ["Espacio Vectorial Latente (Representación Conceptual)"]
+        direction TB
+        C1["🔵 Vector 'C#'\n[0.23, 0.89, -0.45]"] &lt;--&gt;|Similitud Alta\nCoseno ≈ 0.95| C2["🔵 Vector '.NET'\n[0.21, 0.87, -0.42]"]
+        C1 -.-&gt;|Similitud Baja\nCoseno ≈ 0.12| F1["🔴 Vector 'Cocina'\n[-0.85, 0.11, 0.73]"]
+    end
+    Q["💬 Consulta: '¿Cómo programar en C#?'"] --&gt;|Embeddings| QV["🟢 Vector Consulta\n[0.22, 0.88, -0.44]"]
+    QV --&gt;|Busca Cercanía| C1</code></pre>
 <h4 id="azure-openai-y-openai-sdk-para-net">Azure OpenAI y OpenAI SDK para .NET</h4>
 <p>Es la opción más común en entornos empresariales. Utilizando la librería oficial <code>Azure.AI.OpenAI</code> o <code>OpenAI</code>, podemos enviar texto a modelos como <code>text-embedding-3-small</code> o <code>text-embedding-3-large</code>.</p>
 <div class="language-csharp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">Azure.AI.OpenAI</span><span class="p">;</span>
@@ -3377,6 +3395,8 @@
 
 
 
+
+  
 
 
 

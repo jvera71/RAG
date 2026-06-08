@@ -56,6 +56,16 @@
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HLNJJD20B4"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HLNJJD20B4",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HLNJJD20B4",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3188,6 +3198,18 @@
 <li><strong>Búsqueda Vectorial (HNSW/Cosine Similarity):</strong> Basada en la cercanía en el espacio latente. Es ideal para consultas en lenguaje natural donde el usuario no usa las palabras exactas del documento (ej. "¿Cómo configurar el correo?" en lugar de "Protocolos de comunicación SMTP").</li>
 </ol>
 <p>Al unirlos, el sistema compensa las debilidades de uno con las fortalezas del otro, incrementando significativamente el <em>Recall</em> (la capacidad de encontrar todos los documentos relevantes).</p>
+<pre class="mermaid"><code>flowchart TD
+    Query["💬 Consulta del Usuario"] --&gt; BM25["🔎 Motor Léxico (BM25)\nBusca palabras exactas"]
+    Query --&gt; Embed["🧠 Generación de Vector"]
+    Embed --&gt; Vector["🔎 Búsqueda Vectorial (HNSW)\nBusca significado"]
+
+    BM25 --&gt; List1["Lista 1:\n1. Doc A\n2. Doc B\n3. Doc C"]
+    Vector --&gt; List2["Lista 2:\n1. Doc C\n2. Doc A\n3. Doc D"]
+
+    List1 --&gt; RRF["⚡ Algoritmo RRF (Reciprocal Rank Fusion)\nPuntuación por posición"]
+    List2 --&gt; RRF
+
+    RRF --&gt; FinalList["📋 Lista Híbrida Resultante:\n1. Doc A (Score RRF: 0.032)\n2. Doc C (Score RRF: 0.031)\n3. Doc B (Score RRF: 0.016)"]</code></pre>
 <h3 id="452-reciprocal-rank-fusion-rrf">4.5.2 Reciprocal Rank Fusion (RRF)</h3>
 <p>Para combinar los resultados de ambos motores (que usan escalas de puntuación diferentes), se suele utilizar una técnica llamada <strong>Reciprocal Rank Fusion (RRF)</strong>. RRF no suma las puntuaciones directamente, sino que asigna una nueva puntuación basada en la <em>posición</em> (ranking) que ocupa el documento en cada una de las listas de resultados.</p>
 <p>La fórmula simplificada es:
@@ -3264,6 +3286,8 @@ $score = \sum_{d \in r} \frac{1}{k + rank(d)}$</p>
 
 
 
+
+  
 
 
 

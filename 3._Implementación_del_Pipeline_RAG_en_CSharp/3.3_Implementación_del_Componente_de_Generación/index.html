@@ -56,6 +56,16 @@
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HLNJJD20B4"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HLNJJD20B4",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HLNJJD20B4",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3240,6 +3250,13 @@
 <h1 id="33-implementacion-del-componente-de-generacion">3.3 Implementación del Componente de Generación</h1>
 <p>Una vez que hemos procesado nuestros documentos PDF y recuperado los fragmentos de texto (chunks) más relevantes desde nuestra base de datos vectorial, entramos en la fase final del pipeline RAG básico: la <strong>Generación</strong>.</p>
 <p>En esta etapa, el componente de generación actúa como el "cerebro" del sistema, tomando la consulta original del usuario y el contexto recuperado para producir una respuesta coherente, precisa y, sobre todo, fundamentada en los datos proporcionados.</p>
+<pre class="mermaid"><code>flowchart TD
+    SYS["⚙️ Mensaje del Sistema\n(Instrucciones de restricción)"] --&gt; PROMPT["📝 Prompt Enriquecido Final"]
+    CTX["📚 Contexto Recuperado\n(Fragmentos de PDFs relevantes)"] --&gt; PROMPT
+    USER["💬 Pregunta del Usuario\n(Consulta original)"] --&gt; PROMPT
+
+    PROMPT --&gt; LLM["🤖 LLM (Generación)"]
+    LLM --&gt; ANS["✅ Respuesta al Usuario"]</code></pre>
 <h3 id="331-ingenieria-de-prompts-estructurada-usando-semantic-kernel-prompts">3.3.1 Ingeniería de Prompts estructurada usando Semantic Kernel Prompts</h3>
 <p>La calidad de la respuesta generada depende directamente de cómo estructuramos las instrucciones para el LLM. En el ecosistema .NET, <strong>Semantic Kernel</strong> es la herramienta líder para gestionar esta interacción, permitiendo separar la lógica del código de la definición de los prompts.</p>
 <h4 id="uso-de-plantillas-con-handlebars">Uso de plantillas con Handlebars</h4>
@@ -3348,6 +3365,8 @@
 
 
 
+
+  
 
 
 
